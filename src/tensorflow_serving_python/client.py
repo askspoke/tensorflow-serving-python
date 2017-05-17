@@ -32,7 +32,7 @@ class TFClient(object):
         """
         return self.stub.Predict(request, timeout)
 
-    def make_prediction(self, data, name='inception', timeout=10., convert_to_dict=True):
+    def make_prediction(self, data, name='inception', timeout=10., convert_to_dict=True, signature_name=None):
         """
         Make a prediction on a buffer full of image data (tested .jpg as of now)
         :param data: Data buffer
@@ -42,6 +42,8 @@ class TFClient(object):
         """
         request = predict_pb2.PredictRequest()
         request.model_spec.name = name
+        if signature_name:
+            request.model_spec.signature_name = signature_name
         proto = tf.contrib.util.make_tensor_proto(data, shape=[1])
 
         # TODO dst.CopyFrom(src) fails here because we compile custom protocolbuffers

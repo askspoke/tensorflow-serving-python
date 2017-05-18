@@ -21,8 +21,7 @@ setup(
     package_dir={'': 'src'},
     setup_requires=['cython'],
     install_requires=[
-        'grpcio', 'grpcio-tools',
-        'tensorflow',
+        'grpcio', 'grpcio-tools'
     ],
     cmdclass={
         'install': BuildPackageProtos,

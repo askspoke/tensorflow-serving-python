@@ -16,14 +16,13 @@ from tensorflow_serving_python.protos import tensor_shape_pb2
 # TODO(opensource): Add support for pyx_library in the open-source build.
 # For now, we use the slow versions that fast_tensor_util replaces.
 # pylint: disable=g-import-not-at-top
-try:
-  from tensorflow.python.framework import fast_tensor_util
-  _FAST_TENSOR_UTIL_AVAILABLE = True
-except ImportError:
-  _FAST_TENSOR_UTIL_AVAILABLE = False
+#try:
+#  from tensorflow.python.framework import fast_tensor_util
+#  _FAST_TENSOR_UTIL_AVAILABLE = True
+#except ImportError:
+_FAST_TENSOR_UTIL_AVAILABLE = False
 
-from tensorflow.python.framework import dtypes
-from tensorflow.python.framework import ops
+from tensorflow_serving_python.tensor_utils import ops
 # pylint: enable=g-import-not-at-top
 
 

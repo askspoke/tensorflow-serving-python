@@ -1,9 +1,9 @@
-import tensorflow as tf
+#import tensorflow as tf
+from .tensor_utils.tensor_utils import make_tensor_proto, make_nd_array
 from grpc.beta import implementations
 
 from tensorflow_serving_python.protos import prediction_service_pb2, predict_pb2
 from tensorflow_serving_python.proto_util import copy_message
-
 
 class TFClient(object):
     """
@@ -44,7 +44,7 @@ class TFClient(object):
         request.model_spec.name = name
         if signature_name:
             request.model_spec.signature_name = signature_name
-        proto = tf.contrib.util.make_tensor_proto(data, shape=[1])
+        proto = make_tensor_proto(data, shape=[1])
 
         # TODO dst.CopyFrom(src) fails here because we compile custom protocolbuffers
         # TODO Proper compiling would speed up the next line by a factor of 10
@@ -58,7 +58,7 @@ class TFClient(object):
         results_dict = {}
         for key in response.outputs:
             tensor_proto = response.outputs[key]
-            nd_array = tf.contrib.util.make_ndarray(tensor_proto)
+            nd_array = make_nd_array(tensor_proto)
             results_dict[key] = nd_array
 
         return results_dict

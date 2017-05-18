@@ -1,4 +1,3 @@
 cython
 grpcio
 grpcio-tools
-tensorflow

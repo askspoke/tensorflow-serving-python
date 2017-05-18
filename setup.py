@@ -17,7 +17,8 @@ setup(
     description='Python client for tensorflow serving',
     author="Sebastian Schlecht",
     license="MIT",
-    packages=['tensorflow_serving_python', 'tensorflow_serving_python.protos'],
+    packages=['tensorflow_serving_python', 'tensorflow_serving_python.protos',
+              'tensorflow_serving_python.tensor_utils'],
     package_dir={'': 'src'},
     setup_requires=['cython'],
     install_requires=[

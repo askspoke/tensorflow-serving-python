@@ -1,14 +1,26 @@
 from setuptools import setup
 from setuptools.command.install import install
+from setuptools.command.develop import develop
 
 import os
 
 
-class BuildPackageProtos(install):
-    def run(self):
-        install.run(self)
+class PackgeProtoBuilderMixin(object):
+    def build_package_protos(self):
         from grpc.tools import command
         command.build_package_protos(self.distribution.package_dir[''])
+
+
+class InstallWithProtos(install, PackgeProtoBuilderMixin):
+    def run(self):
+        install.run(self)
+        self.build_package_protos()
+
+
+class DevelopWithProtos(develop, PackgeProtoBuilderMixin):
+    def run(self):
+        develop.run(self)
+        self.build_package_protos()
 
 
 setup(
@@ -20,12 +32,18 @@ setup(
     packages=['tensorflow_serving_python', 'tensorflow_serving_python.protos',
               'tensorflow_serving_python.tensor_utils'],
     package_dir={'': 'src'},
-    setup_requires=['cython'],
+    setup_requires=[
+        'cython',
+        'grpcio-tools'
+    ],
     install_requires=[
-        'grpcio', 'grpcio-tools'
+        'cython',
+        'grpcio',
+        'grpcio-tools',
+        'numpy'
     ],
     cmdclass={
-        'install': BuildPackageProtos,
-        'develop': BuildPackageProtos,
+        'install': InstallWithProtos,
+        'develop': DevelopWithProtos,
     }
 )

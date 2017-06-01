@@ -21,14 +21,14 @@ class PackgeProtoBuilderMixin(object):
 
 class InstallWithProtos(install, PackgeProtoBuilderMixin):
     def run(self):
-        install.run(self)
         self.build_package_protos()
+        install.run(self)
 
 
 class DevelopWithProtos(develop, PackgeProtoBuilderMixin):
     def run(self):
-        develop.run(self)
         self.build_package_protos()
+        develop.run(self)
 
 
 setup(

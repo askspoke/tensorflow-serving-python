@@ -48,7 +48,7 @@ class TFClient(object):
 
         # TODO dst.CopyFrom(src) fails here because we compile custom protocolbuffers
         # TODO Proper compiling would speed up the next line by a factor of 10
-        copy_message(proto, request.inputs['images'])
+        copy_message(proto, request.inputs['image_bytes'])
         response = self.execute(request, timeout=timeout)
 
         if not convert_to_dict:
